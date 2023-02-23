@@ -7,12 +7,6 @@ clone_folder: c:\projects\miasm
 
 environment:
   matrix:
-    - platform: Win32
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      PLATFORM_TOOLSET: v141
-      PYTHON: c:\Python38
-      PYTHON_VERSION: "3.8.x"
-
     - platform: x64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       PLATFORM_TOOLSET: v141
@@ -27,7 +21,6 @@ install:
   - cmd: "%PYTHON%\\python.exe -m pip install -r optional_requirements.txt"
 
 build_script:
-  - cmd: if "%platform%"=="Win32" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
   - cmd: if "%platform%"=="x64" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
   - "%PYTHON%\\python.exe setup.py build"
   - "%PYTHON%\\python.exe setup.py install"
@@ -39,7 +32,6 @@ test_script:
 after_test:
   - cmd: chdir
   - cmd: set plat
-  - cmd: if "%platform%"=="Win32" 7z a -t7z ..\miasm.x86.release.7z c:\projects\miasm\build\*lib*
   - cmd: if "%platform%"=="X64" 7z a -t7z ..\miasm.x64.release.7z c:\projects\miasm\build\*lib*
 
 artifacts:
