@@ -30,9 +30,8 @@ test_script:
   # - "%PYTHON%\\python.exe -W error test_all.py"
 
 after_test:
-  - cmd: chdir
-  - cmd: set plat
-  - cmd: if "%platform%"=="X64" 7z a -t7z ..\miasm.x64.release.7z c:\projects\miasm\build\*lib*
+  - cmd: cd c:\projects\miasm
+  - cmd: if "%platform%"=="X64" 7z a -t7z c:\projects\miasm\miasm.x64.release.7z c:\projects\miasm\
 
 artifacts:
   - path: miasm.*.7z
